@@ -31,11 +31,11 @@ def extract_zip2(caseid, filename):
 	for zipped_file in input_file.namelist():
 		if not banned(zipped_file):
 			zipped_filename = zipped_file
+			
 			if zipped_filename.startswith('\\') or zipped_filename.startswith('/'):
 				zipped_filename = zipped_filename[1:]
 			if zipped_filename.endswith('/'):
-				print 'This is a folder: %s' % zipped_filename
-				os.makedirs(os.path.join(os.path.dirname(filename), zipped_filename))	
+				os.makedirs(os.path.join(os.path.dirname(filename), zipped_filename))
 			else:
 				print 'Extract Filename: %s, Zipped Filename: %s' % (os.path.dirname(filename), os.path.basename(zipped_filename))
 				filename = os.path.join(os.path.dirname(filename), os.path.basename(zipped_filename))
