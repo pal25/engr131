@@ -32,16 +32,17 @@ def extract_zip2(caseid, filename):
 		if not banned(zipped_file):
 			zipped_filename = zipped_file
 			if zipped_filename.startswith('\\') or zipped_filename.startswith('/'):
-					zipped_filename = zipped_filename[1:]
-					if zipped_filename.endswith('/'):
-						os.makedirs(os.path.join(os.path.dirname(filename), zipped_filename))	
-			
-			print 'Extract Filename: %s, Zipped Filename: %s' % (os.path.dirname(filename), zipped_filename)
-			filename = os.path.join(os.path.dirname(filename), zipped_filename)
-			file_list.append(filename)
-			output_file = open(filename, 'w')
-			zipped_file_obj = input_file.open(zipped_file)
-			shutil.copyfileobj(zipped_file_obj, output_file)
+				zipped_filename = zipped_filename[1:]
+			if zipped_filename.endswith('/'):
+				print 'This is a folder: %s' % zipped_filename
+				os.makedirs(os.path.join(os.path.dirname(filename), zipped_filename))	
+			else:
+				print 'Extract Filename: %s, Zipped Filename: %s' % (os.path.dirname(filename), os.path.basename(zipped_filename))
+				filename = os.path.join(os.path.dirname(filename), os.path.basename(zipped_filename))
+				file_list.append(filename)
+				output_file = open(filename, 'w')
+				zipped_file_obj = input_file.open(zipped_file)
+				shutil.copyfileobj(zipped_file_obj, output_file)
 			
 	return file_list	
 	
